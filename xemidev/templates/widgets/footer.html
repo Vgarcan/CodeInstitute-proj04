@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row">
+    <!-- About Section -->
+    <div class="col-md-4">
+      <h3>About Us</h3>
+      <p>My mission is to simplify web development for businesses by offering custom, user-friendly solutions tailored to their needs. Whether you're looking to build a stunning new website or improve the performance of your existing one, I’m here to guide you through every step of the process and deliver results that make a difference.</p>
+    </div>
+
+    <!-- Navigation Links -->
+    <div class="col-md-4">
+      <div class="col">
+        <h3>Quick Links</h3>
+      </div>
+      <div class="col d-md-flex">
+        <div class="col-md-6">
+          <ul class="list-unstyled">
+            {# Use Django's url tag instead of Flask's url_for #}
+            <li>
+              <a href="{% url 'main:home' %}">Home</a>
+            </li>
+            <li>
+              <a href="{% url 'main:about' %}">About Us</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <ul class="list-unstyled">
+            <li>
+              <a href="{% url 'main:faq' %}">FaQ</a>
+            </li>
+            <li>
+              <a href="{% url 'main:terms' %}">Terms & Conditions</a>
+            </li>
+            <li>
+              <a href="{% url 'main:privpol' %}">Privacy Policy</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="col-md-4">
+      <h3>Contact Us</h3>
+      <ul class="list-unstyled">
+        <li>Email: contact@example.com</li>
+        <li>Phone: +1 234 567 890</li>
+        <li>Address: 123 Fake Street, City, Country</li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% comment %} 
+# Set the Title for the page 
+{% endcomment %}
+{% block head_title %}
+    Terms and Conditions
+{% endblock head_title %}
+
+{% comment %} 
+# Set the CSS file and Other for the page 
+{% endcomment %}
+{% block extra_head %}
+{% endblock extra_head %}
+
+{% comment %}
+# Appends the content in the BODY tag
+{% endcomment %}
+{% block content %}
+    <div class="container">
+        <section class="text-center my-4">
+            <h2>Terms and Conditions</h2>
+            <p>Welcome to my website. These Terms and Conditions govern your use of <strong>RED-BAZAAR.COM</strong> (hereinafter, the "Site"). 
+                By accessing and using this Site, you agree to be bound by these terms, along with our <a href="{% url "main:privpol" %}">Privacy Policy</a>. 
+                If you do not agree with these terms, please do not use this Site.</p>
+        </section>
+
+        <section>
+            <h3>1. Services Offered</h3>
+            <p>I am a freelance web developer offering customized web development and design services. The specific services, along with pricing and delivery timelines, will be agreed upon on an individual basis through a written contract or agreement.</p>
+        </section>
+
+        <section>
+            <h3>2. Use of the Site</h3>
+            <p>You are permitted to use this Site exclusively for:</p>
+            <ul>
+                <li>Learning about the web development services I offer.</li>
+                <li>Contacting me for potential collaborations.</li>
+                <li>Viewing and evaluating my portfolio projects.</li>
+            </ul>
+            <p>All content on this Site is protected by copyright. You may not use, copy, distribute, reproduce, or transmit any content from this Site without my prior authorization.</p>
+        </section>
+
+        <section>
+            <h3>3. Projects and Deliverables</h3>
+            <p>Each project will be customized according to the client's needs. The scope of work, price, and delivery timelines will be defined in a specific contract for each project. The development process will begin once both parties have agreed on the terms and conditions, and any required upfront payment has been received.</p>
+        </section>
+
+        <section>
+            <h3>4. Payment Policy</h3>
+            <p>Payment terms, including rates and schedules, will be specified in the project contract. Unless otherwise stated, all payments must be made on the agreed-upon dates. Payments can be made via bank transfer or other agreed methods.</p>
+        </section>
+
+        <section>
+            <h3>5. Intellectual Property</h3>
+            <p>All intellectual property rights related to the work I develop during a project will be transferred to the client once full payment has been made, unless otherwise stated in the contract. This includes, but is not limited to, code, design, and custom content. However, I reserve the right to display snippets or images of the project in my portfolio to promote my work, unless otherwise agreed with the client.</p>
+        </section>
+
+        <section>
+            <h3>6. Use of Third-Party Services</h3>
+            <p>I may use third-party tools or platforms for some projects, such as hosting, CMS, or third-party software. The use of these services will be subject to the terms and conditions of those third parties, which the client must accept.</p>
+        </section>
+
+        <section>
+            <h3>7. Project Modifications and Cancellations</h3>
+            <p>Any changes to the project scope after the contract has been signed must be mutually agreed upon and may be subject to a price and delivery adjustment. In the event of a project cancellation by the client, payment will be required for the work completed up to the cancellation date.</p>
+        </section>
+
+        <section>
+            <h3>8. Warranty and Support</h3>
+            <p>Once a project has been completed and delivered, I will offer limited support to fix bugs or issues directly related to the development of the website, as outlined in the contract. However, I am not responsible for technical issues caused by improper use of the site, third-party software errors, or modifications made by third parties without my consent.</p>
+        </section>
+
+        <section>
+            <h3>9. Limitation of Liability</h3>
+            <p>I am not responsible for any direct, indirect, incidental, or consequential damages that arise from the use or inability to use the Site or the services offered, even if I have been advised of the possibility of such damages.</p>
+        </section>
+
+        <section>
+            <h3>10. Privacy</h3>
+            <p>Your privacy is important to me. Any personal information you share while using this Site will be treated according to my <a href="[privacy-policy-link]">Privacy Policy</a>.</p>
+        </section>
+
+        <section>
+            <h3>11. Changes to the Terms</h3>
+            <p>I reserve the right to modify these Terms and Conditions at any time. Any changes will take effect immediately upon being posted on the Site. It is your responsibility to review these terms periodically.</p>
+        </section>
+
+        <section>
+            <h3>12. Governing Law</h3>
+            <p>These Terms and Conditions are governed by and interpreted in accordance with the laws of <strong>United Kingdom</strong>, without regard to its conflict of law provisions. Any dispute arising in connection with the use of the Site or the services offered will be resolved in the courts of <strong>United Kingdom</strong>.</p>
+        </section>
+
+        <section>
+            <h3>13. Contact Information</h3>
+            <p>If you have any questions about these Terms and Conditions, please contact me at <a href="mailto:[vgarcanuk@gmail.com]">my email</a> or use the contact form on the Site.</p>
+        </section>
+    </div>
+{% endblock content %}
+
+{% comment %}
+# Append JS files here for the page
+{% endcomment %}
+{% block extra_body %}
+{% endblock extra_body %}
+

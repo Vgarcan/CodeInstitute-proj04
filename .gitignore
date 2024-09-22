@@ -3,3 +3,4 @@ XEMIDOCS
 .env
 db.sqlite3
 .venv
+notReady
