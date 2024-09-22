@@ -110,6 +110,8 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+AUTH_USER_MODEL = 'users.User'  # Overrides Django's included ABSTARCTUSER
+
 SITE_ID = 1
 
 # ALLAUTH SETTINGS
@@ -174,7 +176,7 @@ ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 # Custom forms used by Allauth for various actions like signup, login, and password reset.
 ACCOUNT_FORMS = {
     # Custom form for user registration.
-    'signup': 'allauth.account.forms.SignupForm',
+    'signup': 'users.forms.SignupForm',
     'login': 'allauth.account.forms.LoginForm',  # Custom form for user login.
     # Custom form for adding an additional email to an account.
     'add_email': 'allauth.account.forms.AddEmailForm',
