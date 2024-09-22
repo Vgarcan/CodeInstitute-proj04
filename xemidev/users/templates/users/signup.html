@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load i18n %}
+{% load allauth account %}
 {% load static %}
 
 {% comment %}
@@ -17,48 +19,99 @@
 {% comment %}
 # Appends the content in the BODY tag
 {% endcomment %}
-{% load i18n %}
-{% load allauth account %}
+
 {% block content %}
+    {# This defines the start of the 'content' block, which can be overridden or extended by other templates. #}
+
     {% element h1 %}
         {% trans "Sign Up" %}
     {% endelement %}
+    {# This creates an <h1> tag with the text "Sign Up". The {% trans %} tag ensures that this text can be translated into different languages. #}
+
     {% setvar link %}
         <a href="{{ login_url }}">
-        {% endsetvar %}
-        {% setvar end_link %}
+    {% endsetvar %}
+    {# This stores the opening <a> tag with the href attribute set to the login URL. `login_url` is passed from the context and is the URL for the login page. #}
+
+    {% setvar end_link %}
         </a>
     {% endsetvar %}
+    {# This stores the closing </a> tag, which will close the anchor (link). #}
+
     {% element p %}
         {% blocktranslate %}Already have an account? Then please {{ link }}sign in{{ end_link }}.{% endblocktranslate %}
     {% endelement %}
+    {# This creates a <p> (paragraph) tag with a translated message: "Already have an account? Then please sign in." #}
+    {# The {% blocktranslate %} tag ensures that this entire block can be translated, and the `{{ link }}sign in{{ end_link }}` part creates a hyperlink to the login page. #}
+
     {% if not SOCIALACCOUNT_ONLY %}
-        {% url 'account_signup' as action_url %}
-        {% element form form=form method="post" action=action_url tags="entrance,signup" %}
-            {% slot body %}
-                {% csrf_token %}
-                {% element fields form=form unlabeled=True %}
-                {% endelement %}
-                {{ redirect_field }}
-            {% endslot %}
-            {% slot actions %}
-                {% element button tags="prominent,signup" type="submit" %}
-                    {% trans "Sign Up" %}
-                {% endelement %}
-            {% endslot %}
-        {% endelement %}
+        {# This checks if SOCIALACCOUNT_ONLY is False. If True, this form will not display and only social account login options (like Google or Facebook) will be available. #}
+
+        <div class="container">
+            {# This <div> provides a container around the form for styling purposes. #}
+
+            {% url 'account_signup' as action_url %}
+            {# Retrieves the URL for the 'account_signup' view and stores it in the variable `action_url`. This URL is used as the form's action (where the form will be submitted). #}
+
+            {% element form form=form method="post" action=action_url tags="entrance,signup" %}
+                {# This renders a <form> tag using the `form` variable (likely a Django form object passed in the context). #}
+                {# The form method is "post", and the action (submit URL) is `action_url`. #}
+                {# Custom tags ("entrance, signup") may be used for styling or analytics. #}
+
+                {% slot body %}
+                    {% csrf_token %}
+                    {# This renders a CSRF token, a security measure to prevent cross-site request forgery attacks. Required in all Django POST forms. #}
+
+                    {% element fields form=form unlabeled=True %}
+                    {% endelement %}
+                    {# This renders the fields of the form. Setting `unlabeled=True` suggests that form fields are rendered without labels, likely for custom UI purposes. #}
+
+                    {{ redirect_field }}
+                    {# This renders a hidden field that keeps track of where the user should be redirected after successful signup. #}
+                {% endslot %}
+                {# The 'body' slot defines the content inside the form, such as the CSRF token and form fields. #}
+
+                {% slot actions %}
+                    {% element button tags="prominent,signup" type="submit" %}
+                        {% trans "Sign Up" %}
+                    {% endelement %}
+                    {# This renders a submit button for the form. The button is styled using the tags "prominent" and "signup" and has the label "Sign Up", which can be translated using {% trans %}. #}
+                {% endslot %}
+                {# The 'actions' slot defines the form's action buttons, such as the submit button in this case. #}
+
+            {% endelement %}
+            {# This ends the form element. #}
+        </div>
+        {# Ends the container div. #}
     {% endif %}
+    {# Ends the check for SOCIALACCOUNT_ONLY. The form will not be shown if only social account logins are enabled. #}
+
     {% if PASSKEY_SIGNUP_ENABLED %}
+        {# If PASSKEY_SIGNUP_ENABLED is True, this block allows users to sign up using a passkey (WebAuthn). #}
+
         {% element hr %}
         {% endelement %}
+        {# This renders a horizontal rule (<hr>) to visually separate the signup form from the passkey signup option. #}
+
         {% element button href=signup_by_passkey_url tags="prominent,signup,outline,primary" %}
             {% trans "Sign up using a passkey" %}
         {% endelement %}
+        {# This renders a button that links to the URL `signup_by_passkey_url`, allowing users to sign up using a passkey.  #}
+        {# The button is styled using tags like "prominent", "signup", "outline", and "primary". The label "Sign up using a passkey" is translatable using {% trans %}. #}
     {% endif %}
+    {# Ends the conditional block for passkey signup. #}
+
     {% if SOCIALACCOUNT_ENABLED %}
+        {# If SOCIALACCOUNT_ENABLED is True, this block renders the social account login options (like Google or Facebook) by including the template `socialaccount/snippets/login.html`. #}
+
         {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+        {# This includes the "socialaccount/snippets/login.html" template and passes `page_layout="entrance"` to control the layout of the social login options (likely affecting styling or structure). #}
     {% endif %}
+    {# Ends the block for displaying social account login options if SOCIALACCOUNT_ENABLED is True. #}
+
 {% endblock content %}
+{# This ends the 'content' block. #}
+
 
 {% comment %}
 # Append JS files here for the page

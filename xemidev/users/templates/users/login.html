@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load i18n %}
+{% load allauth account %}
 {% load static %}
 
 {% comment %}
@@ -17,64 +19,129 @@
 {% comment %}
 # Appends the content in the BODY tag
 {% endcomment %}
-{% load i18n %}
-{% load allauth account %}
+
 {% block content %}
+    {# This starts a block called 'content' that can be extended or overridden by other templates. #}
+
     {% element h1 %}
         {% trans "Sign In" %}
     {% endelement %}
+    {# Creates an <h1> element with the text "Sign In". The {% trans %} tag is used to support translation, allowing the text to be translated into different languages. #}
+
     {% if not SOCIALACCOUNT_ONLY %}
+        {# This checks if the variable SOCIALACCOUNT_ONLY is False. If it's False, the following block will render. This is used when social account logins are not the only option, meaning regular login is allowed. #}
+
         {% setvar link %}
             <a href="{{ signup_url }}">
-            {% endsetvar %}
-            {% setvar end_link %}
+        {% endsetvar %}
+        {# The {% setvar %} tag is a custom tag that stores the value of an HTML link opening tag (`<a href="...">`). It's used to later insert this link inside the translated string. #}
+
+        {% setvar end_link %}
             </a>
         {% endsetvar %}
+        {# Similarly, {% setvar %} stores the closing </a> tag. #}
+
         {% element p %}
             {% blocktranslate %}If you have not created an account yet, then please {{ link }}sign up{{ end_link }} first.{% endblocktranslate %}
         {% endelement %}
-        {% url 'account_login' as login_url %}
-        {% element form form=form method="post" action=login_url tags="entrance,login" %}
-            {% slot body %}
-                {% csrf_token %}
-                {% element fields form=form unlabeled=True %}
-                {% endelement %}
-                {{ redirect_field }}
-            {% endslot %}
-            {% slot actions %}
-                {% element button type="submit" tags="prominent,login" %}
-                    {% trans "Sign In" %}
-                {% endelement %}
-            {% endslot %}
-        {% endelement %}
+        {# This creates a <p> (paragraph) element with a translated string that reads "If you have not created an account yet, then please sign up first." #} 
+        {#  - The {% blocktranslate %} tag allows for translation of the entire string. #}
+        {#  - The {{ link }} and {{ end_link }} variables are injected into the string to form a clickable "sign up" link. #}
+
+        <div class="container">
+            {% url 'account_login' as login_url %}
+            {# This retrieves the URL for the 'account_login' view and assigns it to the variable `login_url`. #}
+    
+            {% element form form=form method="post" action=login_url tags="entrance,login" %}
+                {# Creates a <form> element with the method "post". The `form` variable is passed in, and the form action is set to `login_url`. Custom tags "entrance, login" are also applied for styling or analytics purposes. #}
+    
+                {% slot body %}
+                    {% csrf_token %}
+                    {# CSRF token for security, required for POST forms in Django to prevent Cross-Site Request Forgery attacks. #}
+    
+                    {% element fields form=form unlabeled=True %}
+                    {% endelement %}
+                    {# This generates the form fields without labels (as `unlabeled=True`), meaning the form's layout might have custom styling or structure. #}
+    
+                    {{ redirect_field }}
+                    {# Renders a hidden input field or URL parameter that keeps track of where to redirect the user after a successful login. #}
+                {% endslot %}
+                {# This defines the 'body' part (content) of the form where all fields and tokens are placed. #}
+    
+                {% slot actions %}
+                    {% element button type="submit" tags="prominent,login" %}
+                        {% trans "Sign In" %}
+                    {% endelement %}
+                    {# Creates a submit button for the form, styled with "prominent" and "login" tags. The button label is "Sign In", and it is translatable. #}
+                {% endslot %}
+                {# The 'actions' slot is where the form's buttons or action-related elements are placed, such as the submit button. #}
+            {% endelement %}
+            {# Ends the <form> element block. #}
+        </div>
+
     {% endif %}
+    {# Ends the block that only shows the form if SOCIALACCOUNT_ONLY is False, meaning regular account logins are allowed. #}
+
     {% if LOGIN_BY_CODE_ENABLED or PASSKEY_LOGIN_ENABLED %}
+        {# Checks if either LOGIN_BY_CODE_ENABLED or PASSKEY_LOGIN_ENABLED is True, indicating the availability of alternative login methods like a passkey or login by email code. #}
+
         {% element hr %}
         {% endelement %}
+        {# Creates a horizontal rule (<hr>) to visually separate login methods. #}
+
         {% element button_group vertical=True %}
+            {# Creates a group of buttons aligned vertically. #}
+
             {% if PASSKEY_LOGIN_ENABLED %}
                 {% element button type="submit" form="mfa_login" id="passkey_login" tags="prominent,login,outline,primary" %}
                     {% trans "Sign in with a passkey" %}
                 {% endelement %}
+                {# If passkey login is enabled, this creates a button that submits the form "mfa_login" (likely a multi-factor authentication form). The button text is "Sign in with a passkey". #}
             {% endif %}
+
             {% if LOGIN_BY_CODE_ENABLED %}
                 {% element button href=request_login_code_url tags="prominent,login,outline,primary" %}
                     {% trans "Mail me a sign-in code" %}
                 {% endelement %}
+                {# If login by code is enabled, this creates a button with an `href` pointing to `request_login_code_url`, allowing the user to request a sign-in code via email. #}
             {% endif %}
         {% endelement %}
+        {# Ends the button group. #}
+
     {% endif %}
+    {# Ends the block that shows the alternative login methods (passkey or login by code) if enabled. #}
+
     {% if SOCIALACCOUNT_ENABLED %}
         {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+        {# If social account login is enabled, this includes a template snippet from `socialaccount/snippets/login.html` to display social login options (like Google, Facebook, etc.). It also passes `page_layout="entrance"` as context, which might affect the layout styling. #}
     {% endif %}
+    {# Ends the block that shows social login options if SOCIALACCOUNT_ENABLED is True. #}
+
 {% endblock content %}
+{# Ends the 'content' block. #}
+
 
 {% comment %}
 # Append JS files here for the page
 {% endcomment %}
 {% block extra_body %}
-        {{ block.super }}
-        {% if PASSKEY_LOGIN_ENABLED %}
-            {% include "mfa/webauthn/snippets/login_script.html" with button_id="passkey_login" %}
-        {% endif %}
-    {% endblock %}
+    {# This starts a block named 'extra_body'. This block can be extended or overridden in templates that inherit from the current one. #}
+
+    {{ block.super }}
+    {# This includes the content of the parent template's 'extra_body' block, ensuring that anything defined in the parent template is preserved. #}
+    {# Using `block.super` ensures that whatever is in the block 'extra_body' of the parent template will still be rendered alongside the content here. #}
+
+    {% if PASSKEY_LOGIN_ENABLED %}
+        {# This checks if the `PASSKEY_LOGIN_ENABLED` variable is set to `True`. #} 
+        {# If it is, the following code (to include a script for WebAuthn passkey login) will be executed. #}
+
+        {% include "mfa/webauthn/snippets/login_script.html" with button_id="passkey_login" %}
+        {# This includes the content of the file located at "mfa/webauthn/snippets/login_script.html". #}
+        {# This snippet is most likely a JavaScript file that handles WebAuthn (Web Authentication) login functionality, such as enabling passkey-based login.#}
+        {# The `with` statement passes the variable `button_id="passkey_login"` into the included snippet, which allows the script to identify the correct button on the page for triggering the WebAuthn flow. #}
+        {# In this case, the button with the `id="passkey_login"` will be the trigger for passkey login. #}
+    {% endif %}
+    {# Ends the conditional statement. If `PASSKEY_LOGIN_ENABLED` is False or not defined, the script will not be included. #}
+
+{% endblock %}
+{# Ends the 'extra_body' block. #}
