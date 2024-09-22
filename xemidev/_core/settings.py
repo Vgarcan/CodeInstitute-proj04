@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     # Poject's APPs:
     'main',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -87,6 +88,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR / 'templates',
+            # BASE_DIR / 'templates' / 'allauth',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
