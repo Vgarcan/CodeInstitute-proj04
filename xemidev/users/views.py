@@ -25,7 +25,7 @@ class CustomLoginView(LoginView):  # CBV
     def get_context_data(self, **kwargs):
         # Add extra data to the context for the template
         context = super().get_context_data(**kwargs)
-        # context["extra_message"] = "Loging View from Users APP"
+        context["extra_message"] = "Loging View from Users APP"
         return context
 
 
@@ -38,5 +38,5 @@ class CustomSignupView(SignupView):  # CBV
     def get_context_data(self, **kwargs):
         # Add extra data to the context for the template
         context = super().get_context_data(**kwargs)
-        # context["extra_message"] = "Loging View from Users APP"
+        context["extra_message"] = "Loging View from Users APP"
         return context

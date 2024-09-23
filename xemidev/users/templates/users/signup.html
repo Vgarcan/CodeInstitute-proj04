@@ -23,10 +23,10 @@
 {% block content %}
     {# This defines the start of the 'content' block, which can be overridden or extended by other templates. #}
 
-    {% element h1 %}
-        {% trans "Sign Up" %}
+    {% element h2 %}
+        {% trans "Register" %}
     {% endelement %}
-    {# This creates an <h1> tag with the text "Sign Up". The {% trans %} tag ensures that this text can be translated into different languages. #}
+    {# This creates an <h1> tag with the text "Register". The {% trans %} tag ensures that this text can be translated into different languages. #}
 
     {% setvar link %}
         <a href="{{ login_url }}">
@@ -39,15 +39,15 @@
     {# This stores the closing </a> tag, which will close the anchor (link). #}
 
     {% element p %}
-        {% blocktranslate %}Already have an account? Then please {{ link }}sign in{{ end_link }}.{% endblocktranslate %}
+        {% blocktranslate %}Already have an account? Then please {{ link }}Log In{{ end_link }}.{% endblocktranslate %}
     {% endelement %}
-    {# This creates a <p> (paragraph) tag with a translated message: "Already have an account? Then please sign in." #}
-    {# The {% blocktranslate %} tag ensures that this entire block can be translated, and the `{{ link }}sign in{{ end_link }}` part creates a hyperlink to the login page. #}
+    {# This creates a <p> (paragraph) tag with a translated message: "Already have an account? Then please Log In." #}
+    {# The {% blocktranslate %} tag ensures that this entire block can be translated, and the `{{ link }}Log In{{ end_link }}` part creates a hyperlink to the login page. #}
 
     {% if not SOCIALACCOUNT_ONLY %}
         {# This checks if SOCIALACCOUNT_ONLY is False. If True, this form will not display and only social account login options (like Google or Facebook) will be available. #}
 
-        <div class="container">
+        <div class="container text-center">
             {# This <div> provides a container around the form for styling purposes. #}
 
             {% url 'account_signup' as action_url %}

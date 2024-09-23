@@ -21,14 +21,20 @@
 
     {% endblock %}
 
-    <style></style>
+    <style>
+      {% block extra_css %}
+      {% endblock extra_css %}
+    </style>
   </head>
   <body class="">
     {% block body %}
       <header>
         {% include 'widgets/navbar.html' %}
       </header>
-
+      
+      <!-- Display all messages -->
+      {% include 'widgets/messages.html' %}
+      
       <main class="min-vh-100">
         {% block content %}
           <!-- Page content goes here -->
@@ -41,9 +47,10 @@
       <!-- JS Section -->
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
       <script src="{% static 'js/main.js' %}"></script>
+      {% block extra_body %}{% endblock extra_body %}
       <script>
         // Custom JS goes here
-        {% block extra_body %}
+        {% block custom_js %}
           
         {% endblock %}
 

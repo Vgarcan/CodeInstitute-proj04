@@ -23,7 +23,7 @@
 {% block content %}
     {# This starts a block called 'content' that can be extended or overridden by other templates. #}
 
-    {% element h1 %}
+    {% element h2 %}
         {% trans "Sign In" %}
     {% endelement %}
     {# Creates an <h1> element with the text "Sign In". The {% trans %} tag is used to support translation, allowing the text to be translated into different languages. #}
@@ -42,13 +42,13 @@
         {# Similarly, {% setvar %} stores the closing </a> tag. #}
 
         {% element p %}
-            {% blocktranslate %}If you have not created an account yet, then please {{ link }}sign up{{ end_link }} first.{% endblocktranslate %}
+            {% blocktranslate %}If you have not created an account yet, then please {{ link }}register{{ end_link }} first.{% endblocktranslate %}
         {% endelement %}
-        {# This creates a <p> (paragraph) element with a translated string that reads "If you have not created an account yet, then please sign up first." #} 
+        {# This creates a <p> (paragraph) element with a translated string that reads "If you have not created an account yet, then please register first." #} 
         {#  - The {% blocktranslate %} tag allows for translation of the entire string. #}
-        {#  - The {{ link }} and {{ end_link }} variables are injected into the string to form a clickable "sign up" link. #}
+        {#  - The {{ link }} and {{ end_link }} variables are injected into the string to form a clickable "register" link. #}
 
-        <div class="container">
+        <div class="container text-center">
             {% url 'account_login' as login_url %}
             {# This retrieves the URL for the 'account_login' view and assigns it to the variable `login_url`. #}
     
